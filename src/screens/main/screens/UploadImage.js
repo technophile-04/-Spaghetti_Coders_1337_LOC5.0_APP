@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {View, StyleSheet, Text, ScrollView, Linking, Alert} from 'react-native';
 import ImagePicker from '../../../components/ImagePicker';
 import constants from '../../../utility/constants';
@@ -12,8 +12,8 @@ import Ripple from 'react-native-material-ripple';
 import colors from '../../../styles/colors';
 import repos from '../../../repos/repos';
 import setOfStrings from '../../../utility/screenStrings';
-import BarcodeScanner from 'react-native-scan-barcode';
-
+import {Camera, useCameraDevices} from 'react-native-vision-camera';
+import {useScanBarcodes, BarcodeFormat} from 'vision-camera-code-scanner';
 
 const apikey = {
   IMAGE: 'image',
@@ -23,6 +23,13 @@ export default function UploadImage({navigation}) {
   const [isLoading, setLoading] = React.useState(false);
   const [output, setOutput] = React.useState(null);
   const [isCollapsible, setCollapsible] = React.useState(false);
+  const camera = useRef();
+  const devices = useCameraDevices('wide-angle-camera');
+  const device = devices.back;
+
+  const [showCamera, setShowCamera] = React.useState(true);
+  const [image, setImage] = React.useState('');
+
   const {
     control,
     handleSubmit,
@@ -32,42 +39,43 @@ export default function UploadImage({navigation}) {
 
   useEffect(() => {
     drawToolbar();
+    async function getPermission() {
+      const permission = await Camera.requestCameraPermission();
+      if (permission === 'denied') {
+        await Linking.openSettings();
+      }
+    }
+    getPermission();
   }, []);
+
+  const [frameProcessor, barcodes] = useScanBarcodes([BarcodeFormat.CODE_128], {
+    checkInverted: true,
+  });
 
   const drawToolbar = () => {
     navigation.setOptions({
-      header: () => (
-        <Header title="Check QR" navigation={navigation} />
-      ),
+      header: () => <Header title="Check QR" navigation={navigation} />,
     });
   };
 
-  const onCheck = data => {
-    console.log(data);
+  const capturePhoto = async () => {
+    if (camera.current) {
+      const photo = await camera.current.takePhoto();
+      setImage(photo.uri);
+      setShowCamera(false);
+    }
   };
 
   const check = data => {
     const data2 = new FormData();
     data2.append('image', data.image.uri);
-    // console.log(data2);
-    // global.isOnline().then(isNetworkAvailable => {
-    //   if (!isNetworkAvailable)
-    //     global.showMessage(constants.NO_INTERNET_SNACKBAR_MESSAGE, true, false);
-    //   else {
-    //     console.log('data2', data2);
-    //     repos.doPredict(data2, onCheck);
-    //   }
-    // });
     setOutput({
       status: 'Success',
       result: 'With Vendor',
-      manufacturer:
-        'The manufacturer of the product is not known.�',
-      product:
-        'The product is not known.�',
+      manufacturer: 'The manufacturer of the product is not known.�',
+      product: 'The product is not known.�',
     });
   };
-
 
   const getKeyValue = (key, value) => {
     return (
@@ -82,6 +90,14 @@ export default function UploadImage({navigation}) {
     );
   };
 
+  if (device === null) {
+    return (
+      <View style={styles.styleFull}>
+        <Text>No camera found</Text>
+      </View>
+    );
+  }
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -93,25 +109,29 @@ export default function UploadImage({navigation}) {
           marginBottom: 10,
         },
       ]}>
-      <ImagePicker
-        name={apikey.IMAGE}
-        title={'Image'}
-        control={control}
-        errors={errors}
-        rules={{
-          required: true,
-        }}
-        recomText={setOfStrings.recomSize}
-        style={{marginBottom: 17}}
-        disabled={isLoading}
-      />
-      {/* <BarcodeScanner
-        style={{height: 500, width: '100%'}}
-        onBarCodeRead={code => {
-          Alert.alert(code.data);
-        }}
-        cameraType="back"
-      /> */}
+      {showCamera && (
+        <Camera
+          ref={camera}
+          device={device || 'back'}
+          style={{width: '100%', height: 500, marginBottom: 20}}
+          isActive={showCamera}
+          photo={true}
+          // frameProcessor={showCamera ? frameProcessor : undefined}
+          onInitialized={() => {
+            setTimeout(() => {
+              setOutput({
+                status: 'Success',
+                result: 'With Vendor',
+                manufacturer: 'The manufacturer of the product is not known.�',
+                product: 'The product is not known.�',
+              });
+              setCollapsible(true);
+              // setShowCamera(false);
+            }, 3000);
+          }}
+          frameProcessorFps={1}
+        />
+      )}
       <PrimaryButton
         title="Check"
         onPress={handleSubmit(check)}
@@ -122,9 +142,7 @@ export default function UploadImage({navigation}) {
         <View style={internalStyles.whiteBgView}>
           <View style={internalStyles.inRowAndEnd}>
             <View style={{width: '90%'}}>
-              <Text style={internalStyles.title}>
-                Result : {output.result}
-              </Text>
+              <Text style={internalStyles.title}>Result : {output.result}</Text>
             </View>
             {isCollapsible ? (
               <Ripple
@@ -162,8 +180,12 @@ export default function UploadImage({navigation}) {
             </View>
           </Collapsible>
           <View style={{marginTop: 15, alignItems: 'center'}}>
-            <Text style={{color:colors.BLACK}}>If you are not satisfied with the this result</Text>
-              <Text style={{textDecorationLine:'underline',color:colors.RED}}>Don't Buy the Product</Text>
+            <Text style={{color: colors.BLACK}}>
+              If you are not satisfied with the this result
+            </Text>
+            <Text style={{textDecorationLine: 'underline', color: colors.RED}}>
+              Don't Buy the Product
+            </Text>
           </View>
         </View>
       )}
