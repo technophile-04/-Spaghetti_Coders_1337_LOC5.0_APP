@@ -11,6 +11,7 @@ import global from '../../../../utility/global';
 import {useForm} from 'react-hook-form';
 import BoxInput from '../../../../components/BoxInput';
 import PrimaryButton from '../../../../components/PrimaryButton';
+import BoxDropdown from '../../../../components/BoxDropdown';
 
 const apiKey = {
   IMAGE: 'image',
@@ -20,8 +21,8 @@ const apiKey = {
   MANUFACTURER_EMAIL: 'manufacturerEmail',
   MANUFACTURER_DATE: 'manufacturerDate',
   EXPIRY_DATE: 'expiryDate',
-  PRODUCT_NAME: 'productName',
   PRODUCT_TYPE: 'productType',
+  IS_BATCH: 'isBatch',
   PRODUCT_QUANTITY: 'productQuantity',
   PRODUCT_PRICE: 'productPrice',
   BARCODE: 'barcodeId',
@@ -47,6 +48,61 @@ const inputs = {
     titleNo: 2,
     title: constants.TXT_DESCRIPTION,
     isNumber: false,
+  },
+  [apiKey.MANUFACTURER_DATE]: {
+    name: apiKey.MANUFACTURER_DATE,
+    titleNo: 3,
+    title: constants.TXT_MANUFACTURER_DATE,
+    isNumber: false,
+  },
+  [apiKey.EXPIRY_DATE]: {
+    name: apiKey.EXPIRY_DATE,
+    titleNo: 4,
+    title: constants.TXT_EXPIRY_DATE,
+    isNumber: false,
+  },
+  [apiKey.PRODUCT_QUANTITY]: {
+    name: apiKey.PRODUCT_QUANTITY,
+    titleNo: 7,
+    title: constants.TXT_PRODUCT_QUANTITY,
+    isNumber: true,
+  },
+  [apiKey.PRODUCT_PRICE]: {
+    name: apiKey.PRODUCT_PRICE,
+    titleNo: 8,
+    title: constants.TXT_PRODUCT_PRICE,
+    isNumber: true,
+  },
+};
+
+const dropdowns = {
+  [apiKey.PRODUCT_TYPE]: {
+    name: apiKey.PRODUCT_TYPE,
+    titleNo: 5,
+    title: constants.TXT_PRODUCT_TYPE,
+    data: [
+      {label: 'Select Product Type', value: ''},
+      {label: 'JEWELRY', value: '0'},
+      {label: 'CLOTHES', value: '1'},
+      {label: 'WINE', value: '2'},
+      {label: 'ACCESSORIES', value: '3'},
+    ],
+    handleChange: value => {
+      console.log(value);
+    },
+  },
+  [apiKey.IS_BATCH]: {
+    name: apiKey.IS_BATCH,
+    titleNo: 6,
+    title: constants.TXT_IS_BATCH,
+    data: [
+      {label: 'Select Batch', value: ''},
+      {label: 'YES', value: '0'},
+      {label: 'NO', value: '1'},
+    ],
+    handleChange: value => {
+      console.log(value);
+    },
   },
 };
 
@@ -100,6 +156,31 @@ export default function AddPost({navigation}) {
         }}
         style={[internalStyles.itemBox, style]}
         textBoxStyle={textBoxStyle}
+      />
+    );
+  };
+
+  const getDropdown = ({
+    name,
+    titleNo,
+    title,
+    data,
+    handleChange = () => { },
+  }) => {
+    return (
+      <BoxDropdown
+        name={name}
+        titleNo={titleNo}
+        title={title}
+        control={control}
+        errors={errors}
+        rules={{
+          required: true,
+        }}
+        data={data}
+        starMark={true}
+        style={[internalStyles.itemBox]}
+        onChange={handleChange}
       />
     );
   };
@@ -165,10 +246,19 @@ export default function AddPost({navigation}) {
         }}>
         <Text style={internalStyles.title}>Product Details</Text>
       </View>
-      {getInput(inputs[apiKey.TITLE])}
+      {getInput(inputs[apiKey.NAME])}
       <View style={{height: 10}} />
       {getInput(inputs[apiKey.DESCRIPTION])}
-
+      <View style={{height: 10}} />
+      {getInput(inputs[apiKey.MANUFACTURER_DATE])}
+      <View style={{height: 10}} />
+      {getInput(inputs[apiKey.EXPIRY_DATE])}
+      <View style={{height: 10}} />
+      {getDropdown(dropdowns[apiKey.PRODUCT_TYPE])}
+      <View style={{height: 10}} />
+      {getDropdown(dropdowns[apiKey.IS_BATCH])}
+      <View style={{height: 10}} />
+      {getInput(inputs[apiKey.PRODUCT_PRICE])}
       <View style={{height: 10}} />
 
       <PrimaryButton title={'Post'} onPress={handleSubmit(onSubmit)} style={{width:"100%"}} />

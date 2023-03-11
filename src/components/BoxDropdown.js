@@ -56,6 +56,18 @@ export default function BoxDropdown({
             field.onChange(value);
             onChange(value);
           }}
+          itemTextStyle={{
+            fontFamily: fonts.FONT_FAMILY.Regular,
+            fontWeight: '400',
+            fontSize: fonts._13,
+            color: colors.BLACK,
+          }}
+          selectedTextStyle={{
+            fontFamily: fonts.FONT_FAMILY.Regular,
+            fontWeight: '400',
+            fontSize: fonts._13,
+            color: colors.BLACK,
+          }}
           style={internalStyles.dropdown}
           flatListProps={{
             ItemSeparatorComponent: () => <View style={styles.dropdownItemseparator}/>

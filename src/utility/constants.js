@@ -21,6 +21,12 @@ export default constants = {
   TXT_LOCATION: 'Location',
   TXT_TITLE: 'Title',
   TXT_DESCRIPTION: 'Description/ Question',
+  TXT_MANUFACTURER_DATE: 'Manufacturer Date',
+  TXT_EXPIRY_DATE: 'Expiry Date',
+  TXT_PRODUCT_TYPE: 'Product Type',
+  TXT_PRODUCT_QUANTITY: 'Product Quantity',
+  TXT_PRODUCT_PRICE: 'Product Price',
+  TXT_IS_BATCH: 'Is Batch',
 
   TXT_FIRST_NAME: 'First Name',
   TXT_LAST_NAME: 'Last Name',
