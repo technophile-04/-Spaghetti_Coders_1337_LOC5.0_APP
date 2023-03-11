@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {View, StyleSheet, Text, ScrollView, Linking} from 'react-native';
+import {View, StyleSheet, Text, ScrollView, Linking, Alert} from 'react-native';
 import ImagePicker from '../../../components/ImagePicker';
 import constants from '../../../utility/constants';
 import styles from '../../../styles/styles';
@@ -12,6 +12,8 @@ import Ripple from 'react-native-material-ripple';
 import colors from '../../../styles/colors';
 import repos from '../../../repos/repos';
 import setOfStrings from '../../../utility/screenStrings';
+import BarcodeScanner from 'react-native-scan-barcode';
+
 
 const apikey = {
   IMAGE: 'image',
@@ -47,15 +49,15 @@ export default function UploadImage({navigation}) {
   const check = data => {
     const data2 = new FormData();
     data2.append('image', data.image.uri);
-    console.log(data2);
-    global.isOnline().then(isNetworkAvailable => {
-      if (!isNetworkAvailable)
-        global.showMessage(constants.NO_INTERNET_SNACKBAR_MESSAGE, true, false);
-      else {
-        console.log('data2', data2);
-        repos.doPredict(data2, onCheck);
-      }
-    });
+    // console.log(data2);
+    // global.isOnline().then(isNetworkAvailable => {
+    //   if (!isNetworkAvailable)
+    //     global.showMessage(constants.NO_INTERNET_SNACKBAR_MESSAGE, true, false);
+    //   else {
+    //     console.log('data2', data2);
+    //     repos.doPredict(data2, onCheck);
+    //   }
+    // });
     setOutput({
       status: 'Success',
       result: 'With Vendor',
@@ -103,7 +105,13 @@ export default function UploadImage({navigation}) {
         style={{marginBottom: 17}}
         disabled={isLoading}
       />
-
+      {/* <BarcodeScanner
+        style={{height: 500, width: '100%'}}
+        onBarCodeRead={code => {
+          Alert.alert(code.data);
+        }}
+        cameraType="back"
+      /> */}
       <PrimaryButton
         title="Check"
         onPress={handleSubmit(check)}

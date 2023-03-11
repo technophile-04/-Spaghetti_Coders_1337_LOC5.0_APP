@@ -141,7 +141,11 @@ export default function Forum({navigation}) {
             width={1}
             height={40}
           />
-          <Ripple style={internalStyles.recentPrecautionsItemRightButton}>
+          <Ripple style={internalStyles.recentPrecautionsItemRightButton}
+            onPress={() => {
+              navigateTo('ViewPost', item.name);
+            }}
+          >
             <Text style={internalStyles.title}>View Detail</Text>
           </Ripple>
         </View>

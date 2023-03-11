@@ -1,5 +1,13 @@
 import React, {useEffect} from 'react';
-import {FlatList, Image, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
+import {
+  FlatList,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import Ripple from 'react-native-material-ripple';
 import Header from '../../../../components/Header';
 import colors from '../../../../styles/colors';
@@ -8,56 +16,55 @@ import constants from '../../../../utility/constants';
 import global from '../../../../utility/global';
 
 const accountInfo = {
-  name: "Farmer's Name",
+  name: 'Name',
   location: 'Location',
   image: require('../../../../assets/images/logo.jpg'),
 };
 
 const dataOfPost = {
-  title: 'Tomato Late Blight occured nearby',
+  title: 'Any Medicine',
   description: 'Learn more about the disease and how to prevent it',
   image: require('../../../../assets/sample/late_blight.jpg'),
-  numberOfLikes: 10,
+  status: 'With Vendor',
 };
 
-const dataOfComments = [
+const dataOfTimeline = [
   {
     id: 1,
-    name: "Farmer's Name",
+    name: "Manufacturer's Name",
+    date : '12/12/2020',
     location: 'Location',
     image: require('../../../../assets/images/logo.jpg'),
     comment:
-      'Your Idea should be based on the problem statements which will be released by the Hackanova 2.0 Organizing team.',
-    noOfLikes: 10,
+      'Successfully delivered to the Supplier. The vendor will contact you soon',
   },
   {
     id: 2,
-    name: "Farmer's Name",
+    name: "Supplier's Name",
+    date : '13/12/2020',
     location: 'Location',
     image: require('../../../../assets/images/logo.jpg'),
     comment:
-      'Your Idea should be based on the problem statements which will be released by the Hackanova 2.0 Organizing team',
-    noOfLikes: 10,
+      'Successfully delivered to the Vendor. The vendor will contact you soon',
   },
   {
     id: 3,
-    name: "Farmer's Name",
+    name: "Vendor's Name",
+    date : '14/12/2020',
     location: 'Location',
     image: require('../../../../assets/images/logo.jpg'),
     comment:
-      'Your Idea should be based on the problem statements which will be released by the Hackanova 2.0 Organizing team',
-    noOfLikes: 10,
+      'Successfully Recieved',
   },
 ];
 
 export default function ViewPost({navigation}) {
-  const [isLiked, setIsLiked] = React.useState(false);
 
   useEffect(() => {
     navigation.setOptions({
       header: () => (
         <Header
-          title={'Potato Late Blight'}
+          title={'Dacarbazine'}
           showBackButton={true}
           navigation={navigation}
         />
@@ -65,11 +72,7 @@ export default function ViewPost({navigation}) {
     });
   }, []);
 
-  const changeLiked = () => {
-    setIsLiked(!isLiked);
-  };
-
-  const renderComments = item => {
+  const renderTimeline = item => {
     return (
       <View
         style={{
@@ -94,13 +97,20 @@ export default function ViewPost({navigation}) {
                 alignItems: 'center',
               }}>
               <Text style={internalStyles.name}>{item.name}</Text>
-              <Text style={{fontSize: 12,color:colors.GREY}}>
+              <Text style={{fontSize: 12, color: colors.GREY}}>
                 {'  '}· {item.location}
               </Text>
             </View>
+            <Text style={{fontSize: 12, color: colors.GREY}}>{item.date}</Text>
           </View>
         </View>
-        <Text style={{fontSize: 14, fontWeight: 'normal', marginTop: 10,color:colors.GREY}}>
+        <Text
+          style={{
+            fontSize: 14,
+            fontWeight: 'normal',
+            marginTop: 10,
+            color: colors.GREY,
+          }}>
           {item.comment}
         </Text>
         <View
@@ -109,59 +119,13 @@ export default function ViewPost({navigation}) {
             marginTop: 10,
             alignItems: 'center',
           }}>
-          {isLiked ? (
-            <Ripple
-              style={{
-                height: 30,
-                width: 30,
-                borderRadius: 15,
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginRight: 10,
-              }}
-              onPress={() => {
-                changeLiked();
-              }}>
-              {global.drawIcon(
-                constants.IC_FEATHER,
-                'thumbs-up',
-                20,
-                colors.PRIMARY,
-              )}
-            </Ripple>
-          ) : (
-            <Ripple
-              style={{
-                height: 30,
-                width: 30,
-                borderRadius: 15,
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginRight: 10,
-              }}
-              onPress={() => {
-                changeLiked();
-              }}>
-              {global.drawIcon(
-                constants.IC_FEATHER,
-                'thumbs-up',
-                20,
-                colors.GREY,
-              )}
-            </Ripple>
-          )}
-          <Text style={{fontSize: 14, color: colors.BLACK}}>
-            {item.noOfLikes} Likes
-          </Text>
         </View>
       </View>
     );
   };
 
   return (
-    <ScrollView 
-    showsVerticalScrollIndicator={false}
-    style={[styles.styleFull]}>
+    <ScrollView showsVerticalScrollIndicator={false} style={[styles.styleFull]}>
       <Image
         source={require('../../../../assets/sample/late_blight.jpg')}
         style={{height: 200, width: '100%'}}
@@ -181,7 +145,7 @@ export default function ViewPost({navigation}) {
                 alignItems: 'center',
               }}>
               <Text style={internalStyles.name}>{accountInfo.name}</Text>
-              <Text style={{fontSize: 12}}>
+              <Text style={{fontSize: 12, color: colors.GREY}}>
                 {'  '}· {accountInfo.location}
               </Text>
             </View>
@@ -201,49 +165,9 @@ export default function ViewPost({navigation}) {
             justifyContent: 'space-between',
           }}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            {isLiked ? (
-              <Ripple
-                style={{
-                  height: 30,
-                  width: 30,
-                  borderRadius: 15,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginRight: 10,
-                }}
-                onPress={() => {
-                  changeLiked();
-                }}>
-                {global.drawIcon(
-                  constants.IC_FEATHER,
-                  'thumbs-up',
-                  20,
-                  colors.PRIMARY,
-                )}
-              </Ripple>
-            ) : (
-              <Ripple
-                style={{
-                  height: 30,
-                  width: 30,
-                  borderRadius: 15,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginRight: 10,
-                }}
-                onPress={() => {
-                  changeLiked();
-                }}>
-                {global.drawIcon(
-                  constants.IC_FEATHER,
-                  'thumbs-up',
-                  20,
-                  colors.GREY,
-                )}
-              </Ripple>
-            )}
-            <Text style={{fontSize: 14, color: colors.BLACK}}>
-              {dataOfPost.numberOfLikes} Likes
+            <Text
+              style={{fontSize: 16, color: colors.BLACK, fontWeight: '600'}}>
+              Timeline
             </Text>
           </View>
           <Ripple
@@ -269,34 +193,12 @@ export default function ViewPost({navigation}) {
       </View>
       <View style={{marginTop: 10, paddingHorizontal: 5}}>
         <FlatList
-          data={dataOfComments}
-          renderItem={({item}) => renderComments(item)}
+          data={dataOfTimeline}
+          renderItem={({item}) => renderTimeline(item)}
           keyExtractor={item => item.id}
           scrollEnabled={true}
-          style={{paddingBottom: 60}}
+          style={{paddingBottom: 60, paddingLeft: 15}}
         />
-      </View>
-      <View style={internalStyles.fixedBottomTextInput}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Image
-            source={accountInfo.image}
-            style={internalStyles.logoOfComment}
-            resizeMode="contain"
-          />
-          <View style={{marginLeft: 10, flex: 1}}>
-            <TextInput
-              placeholder="Write a comment..."
-              placeholderTextColor={colors.GREY}
-              style={{
-                fontSize: 14,
-                color: colors.BLACK,
-                flex: 1,
-                height: 40,
-                padding: 0,
-              }}
-            />
-          </View>
-        </View>
       </View>
     </ScrollView>
   );
