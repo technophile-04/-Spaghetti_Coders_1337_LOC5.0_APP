@@ -14,21 +14,30 @@ import PrimaryButton from '../../../../components/PrimaryButton';
 
 const apiKey = {
   IMAGE: 'image',
-  TITLE: 'title',
+  NAME: 'name',
   DESCRIPTION: 'description',
+  MANUFACTURER_NAME: 'manufacturerName',
+  MANUFACTURER_EMAIL: 'manufacturerEmail',
+  MANUFACTURER_DATE: 'manufacturerDate',
+  EXPIRY_DATE: 'expiryDate',
+  PRODUCT_NAME: 'productName',
+  PRODUCT_TYPE: 'productType',
+  PRODUCT_QUANTITY: 'productQuantity',
+  PRODUCT_PRICE: 'productPrice',
+  BARCODE: 'barcodeId',
 };
 
 const accountInfo = {
-  name: "Farmer's Name",
+  name: "Name",
   mobile: '1234567890',
-  email: 'username',
+  email: 'username@gmail.com',
   image: require('../../../../assets/images/logo.jpg'),
-  credits: '10',
+  work: 'Manufacturer',
 };
 
 const inputs = {
-  [apiKey.TITLE]: {
-    name: apiKey.TITLE,
+  [apiKey.NAME]: {
+    name: apiKey.NAME,
     titleNo: 1,
     title: constants.TXT_TITLE,
     isNumber: false,
@@ -53,7 +62,7 @@ export default function AddPost({navigation}) {
     navigation.setOptions({
       header: () => (
         <Header
-          title={'Share You Concerns'}
+          title={'Add Product'}
           showBackButton={true}
           navigation={navigation}
         />
@@ -114,7 +123,7 @@ export default function AddPost({navigation}) {
             <Text style={internalStyles.name}>{accountInfo.name}</Text>
 
             <Text style={internalStyles.infoText}>{accountInfo.mobile}</Text>
-            <Text style={internalStyles.infoText}>Credits : {accountInfo.credits}</Text>
+            <Text style={internalStyles.infoText}>Work : {accountInfo.work}</Text>
             <Text style={[internalStyles.infoText]}>
               {accountInfo.email}
             </Text>
@@ -137,11 +146,11 @@ export default function AddPost({navigation}) {
         style={{
           marginBottom: 10,
         }}>
-        <Text style={internalStyles.title}>Increase Your Credits by adding valuable information to the Community</Text>
+        <Text style={internalStyles.title}>Add Your Product Details</Text>
       </View>
       <ImagePicker
         name={apiKey.IMAGE}
-        title={'Photo of your Crop'}
+        title={'Photo of your Product'}
         control={control}
         errors={errors}
         uploadBox={{height: 200}}
