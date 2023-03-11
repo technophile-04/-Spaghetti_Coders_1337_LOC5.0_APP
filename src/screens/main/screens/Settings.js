@@ -11,7 +11,7 @@ import {launchImageLibrary} from 'react-native-image-picker';
 const list = [
   {
     name: 'Add User Data',
-    screen: 'ExistingUser',
+    screen: 'AddUser',
     icon: 'external-link',
   },
   {
@@ -22,9 +22,10 @@ const list = [
 ];
 
 const accountInfo = {
-  name: "Name",
+  name: 'Name',
   mobile: '1234567890',
   email: 'username',
+  location: 'Raipur',
 };
 export default function Settings({navigation}) {
   const [logo, setLogo] = React.useState(null);
@@ -56,7 +57,6 @@ export default function Settings({navigation}) {
       }, 1000);
     });
   };
-
 
   const handleImagePicker = () => {
     launchImageLibrary({mediaType: 'photo'}, response => {
@@ -109,8 +109,9 @@ export default function Settings({navigation}) {
             <Text style={internalStyles.name}>{accountInfo.name}</Text>
 
             <Text style={internalStyles.infoText}>{accountInfo.mobile}</Text>
+            <Text style={[internalStyles.infoText]}>{accountInfo.email}</Text>
             <Text style={[internalStyles.infoText]}>
-              {accountInfo.email}
+              {accountInfo.location}
             </Text>
           </View>
         </View>

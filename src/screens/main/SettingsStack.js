@@ -4,9 +4,10 @@ import React from 'react';
 import styles from '../../styles/styles';
 import Settings from './screens/Settings';
 import ExistingUser from './screens/settings/ExistingUser';
+import AddUser from './screens/settings/AddUser';
 
 const Stack = createNativeStackNavigator();
-const tabHiddenRoutes = ['ExistingUser'];
+const tabHiddenRoutes = ['ExistingUser','AddUser'];
 
 export default function SettingsStack({navigation, route}) {
   React.useLayoutEffect(() => {
@@ -26,6 +27,7 @@ export default function SettingsStack({navigation, route}) {
     <Stack.Navigator>
       <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="ExistingUser" component={ExistingUser} />
+      <Stack.Screen name="AddUser" component={AddUser} />
     </Stack.Navigator>
   );
 }

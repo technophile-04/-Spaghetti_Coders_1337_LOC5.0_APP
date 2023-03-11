@@ -189,6 +189,12 @@ export default function Dashboard({navigation}) {
     });
   };
 
+  const navigateTo = (screen, param = null) => {
+    navigation.navigate(screen, {
+      [constants.PARAM_TITLE]: param
+    });
+  }
+  
   const renderRecentPrecautions = item => {
     return (
       <View style={internalStyles.recentPrecautionsItem}>
@@ -211,10 +217,12 @@ export default function Dashboard({navigation}) {
             width={1}
             height={40}
           />
-          <Ripple style={internalStyles.recentPrecautionsItemRightButton}>
-            <Text style={internalStyles.title}>
-              View Detail
-            </Text>
+          <Ripple
+            style={internalStyles.recentPrecautionsItemRightButton}
+            onPress={() => {
+              navigateTo('ViewPost', item.name);
+            }}>
+            <Text style={internalStyles.title}>View Detail</Text>
           </Ripple>
         </View>
       </View>
@@ -361,7 +369,7 @@ const internalStyles = StyleSheet.create({
     marginVertical: 5,
   },
   recentPrecautionsItemLeft: {
-    width: "28%",
+    width: '28%',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -372,7 +380,7 @@ const internalStyles = StyleSheet.create({
     width: '30%',
   },
   recentPrecautionsItemImage: {
-    width: "100%",
+    width: '100%',
     height: 80,
     marginRight: 5,
   },
