@@ -18,6 +18,9 @@ import messaging from '@react-native-firebase/messaging';
 import setOfStrings from '../../../utility/screenStrings';
 import Barcode from 'react-native-barcode-builder';
 import Ripple from 'react-native-material-ripple';
+// import {Core} from '@walletconnect/core';
+// import SignClient from '@walletconnect/sign-client';
+// import {AuthClient} from '@walletconnect/auth-client';
 
 var PushNotification = require('react-native-push-notification');
 
@@ -191,10 +194,10 @@ export default function Dashboard({navigation}) {
 
   const navigateTo = (screen, param = null) => {
     navigation.navigate(screen, {
-      [constants.PARAM_TITLE]: param
+      [constants.PARAM_TITLE]: param,
     });
-  }
-  
+  };
+
   const renderRecentPrecautions = item => {
     return (
       <View style={internalStyles.recentPrecautionsItem}>
@@ -228,9 +231,20 @@ export default function Dashboard({navigation}) {
       </View>
     );
   };
+  // const core = new Core({
+  //   projectId: '<YOUR_PROJECT_ID>',
+  // });
 
-  const openCall = () => {
-    Linking.openURL('tel:123456789');
+  // const metadata = {
+  //   name: 'Example Dapp',
+  //   description: 'Example Dapp',
+  //   url: '#',
+  //   icons: ['https://walletconnect.com/walletconnect-logo.png'],
+  // };
+
+  const openCall = async () => {
+    // open metamask
+    Linking.openURL('https://metamask.app.link/dapp/walletconnect.org');
   };
 
   const rederRectangle = (title, value, img) => {

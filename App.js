@@ -12,6 +12,8 @@ import SnackBar from '@prince8verma/react-native-snackbar';
 
 import RootContainer from './src/screens/RootContainer';
 import styles from './src/styles/styles';
+import "@walletconnect/react-native-compat";
+
 const showStatusBar = Platform.OS === 'ios' ? true : false;
 
 const App = () => {
