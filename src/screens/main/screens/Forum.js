@@ -14,18 +14,88 @@ import global from '../../../utility/global';
 import Header from '../../../components/Header';
 import colors from '../../../styles/colors';
 import Ripple from 'react-native-material-ripple';
+import Barcode from 'react-native-barcode-builder';
+import PrimaryButton from '../../../components/PrimaryButton';
 
 const data = [
   {
-    id: 1,
-    title: 'Tomato Late Blight occured nearby',
-    description: 'Learn more about the disease and how to prevent it',
+    mfdDate: '12/12/2020',
+    name: 'Dacarbazine',
+    quantity: '10',
+    expiryDate: '12/12/2020',
+    barcode: '1234567890',
     image: require('../../../assets/sample/late_blight.jpg'),
   },
   {
-    id: 2,
-    title: 'Tomato Late Blight occured nearby',
-    description: 'Learn more about the disease and how to prevent it',
+    mfdDate: '12/12/2020',
+    name: 'Dacarbazine',
+    quantity: '10',
+    expiryDate: '12/12/2020',
+    barcode: '1234567890',
+    image: require('../../../assets/sample/late_blight.jpg'),
+  },
+  {
+    mfdDate: '12/12/2020',
+    name: 'Dacarbazine',
+    quantity: '10',
+    expiryDate: '12/12/2020',
+    barcode: '1234567890',
+    image: require('../../../assets/sample/late_blight.jpg'),
+  },
+  {
+    mfdDate: '12/12/2020',
+    name: 'Dacarbazine',
+    quantity: '10',
+    expiryDate: '12/12/2020',
+    barcode: '1234567890',
+    image: require('../../../assets/sample/late_blight.jpg'),
+  },
+  {
+    mfdDate: '12/12/2020',
+    name: 'Dacarbazine',
+    quantity: '10',
+    expiryDate: '12/12/2020',
+    barcode: '1234567890',
+    image: require('../../../assets/sample/late_blight.jpg'),
+  },
+  {
+    mfdDate: '12/12/2020',
+    name: 'Dacarbazine',
+    quantity: '10',
+    expiryDate: '12/12/2020',
+    barcode: '1234567890',
+    image: require('../../../assets/sample/late_blight.jpg'),
+  },
+  {
+    mfdDate: '12/12/2020',
+    name: 'Dacarbazine',
+    quantity: '10',
+    expiryDate: '12/12/2020',
+    barcode: '1234567890',
+    image: require('../../../assets/sample/late_blight.jpg'),
+  },
+  {
+    mfdDate: '12/12/2020',
+    name: 'Dacarbazine',
+    quantity: '10',
+    expiryDate: '12/12/2020',
+    barcode: '1234567890',
+    image: require('../../../assets/sample/late_blight.jpg'),
+  },
+  {
+    mfdDate: '12/12/2020',
+    name: 'Dacarbazine',
+    quantity: '10',
+    expiryDate: '12/12/2020',
+    barcode: '1234567890',
+    image: require('../../../assets/sample/late_blight.jpg'),
+  },
+  {
+    mfdDate: '12/12/2020',
+    name: 'Dacarbazine',
+    quantity: '10',
+    expiryDate: '12/12/2020',
+    barcode: '1234567890',
     image: require('../../../assets/sample/late_blight.jpg'),
   },
 ];
@@ -38,40 +108,44 @@ export default function Forum({navigation}) {
           title={'My Products'}
           showBackButton={false}
           navigation={navigation}
-          endRippleIcon={'plus-circle'}
-          endRippleIconType={constants.IC_FEATHER}
-          endRippleSize={25}
-          endRippleIconStyle={{
-            height: 30,
-            width: 30,
-            borderRadius: 15,
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: colors.PRIMARY,
-            elevation: 10,
-          }}
-          endRippleClick={() => navigation.navigate('AddPost')}
         />
       ),
     });
   }, []);
 
+  const navigateTo = (screen, param = null) => {
+    navigation.navigate(screen, {
+      [constants.PARAM_TITLE]: param
+    });
+  }
+
   const renderCard = item => {
     return (
-      <Ripple style={internalStyles.card}
-        onPress={() => navigation.navigate('ViewPost')}
-      >
-        <View style={internalStyles.cardHeader}>
+      <View style={internalStyles.recentPrecautionsItem}>
+        <View style={internalStyles.recentPrecautionsItemLeft}>
           <Image
-            source={require('../../../assets/images/logo.jpg')}
-            style={internalStyles.logoImage}
+            source={item.image}
+            style={internalStyles.recentPrecautionsItemImage}
           />
-          <Text style={internalStyles.cardHeaderTitle}>Crop Shield</Text>
         </View>
-        <Text style={internalStyles.cardTitle}>{item.title}</Text>
-        <Text style={internalStyles.cardDescription}>{item.description}</Text>
-        <Image source={item.image} style={internalStyles.cardImage} />
-      </Ripple>
+        <View style={internalStyles.recentPrecautionsItemRight}>
+          <Text style={internalStyles.title}>{item.name}</Text>
+          <Text style={internalStyles.crop}>Quantity : {item.quantity}</Text>
+          <Text style={internalStyles.crop}>Exp : {item.expiryDate}</Text>
+          <Text style={{fontSize: 12}}>Mfd : {item.mfdDate}</Text>
+        </View>
+        <View style={internalStyles.extremeRight}>
+          <Barcode
+            value={item.barcode}
+            format="CODE128"
+            width={1}
+            height={40}
+          />
+          <Ripple style={internalStyles.recentPrecautionsItemRightButton}>
+            <Text style={internalStyles.title}>View Detail</Text>
+          </Ripple>
+        </View>
+      </View>
     );
   };
 
@@ -88,47 +162,74 @@ export default function Forum({navigation}) {
         data={data}
         renderItem={({item}) => renderCard(item)}
         keyExtractor={item => item.id}
+        style={internalStyles.list}
+      />
+
+      <PrimaryButton
+        style={internalStyles.btn}
+        title={`+ ${constants.TXT_ADD_NEW_PRODUCT}`}
+        onPress={() => {
+          navigateTo('AddPost', constants.TXT_ADD_NEW_PRODUCT);
+        }}
       />
     </View>
   );
 }
 
 const internalStyles = StyleSheet.create({
-  card: {
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 10,
-    marginBottom: 10,
-    elevation: 2,
+  recentPrecaution: {
+    flex: 1,
   },
-  cardHeader: {
+  recentPrecautionsItem: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 10,
+    borderRadius: 6,
+    backgroundColor: colors.WHITE,
+    elevation: 1,
+    marginVertical: 5,
   },
-  logoImage: {
-    width: 20,
-    height: 20,
-    borderRadius: 15,
-    marginRight: 10,
+  recentPrecautionsItemLeft: {
+    width: '28%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  cardHeaderTitle: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: colors.BLACK,
+  recentPrecautionsItemRight: {
+    width: '38%',
   },
-  cardTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: colors.BLACK,
+  extremeRight: {
+    width: '30%',
   },
-  cardDescription: {
-    fontSize: 14,
-    color: colors.GREY,
-  },
-  cardImage: {
+  recentPrecautionsItemImage: {
     width: '100%',
-    height: 150,
-    alignSelf: 'center',
-    marginTop: 10,
+    height: 80,
+    marginRight: 5,
+  },
+  recentPrecautionsItemRightButton: {
+    width: '100%',
+    height: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.PRIMARY,
+    borderRadius: 6,
+    marginTop: 5,
+  },
+  title: {
+    color: colors.BLACK,
+    fontWeight: '800',
+    fontSize: 14,
+  },
+  crop: {
+    color: colors.BLACK,
+    fontWeight: '500',
+  },
+  btn: {
+    position: 'absolute',
+    bottom: 16,
+    width: '100%',
+  },
+  list: {
+    paddingBottom: 80,
   },
 });

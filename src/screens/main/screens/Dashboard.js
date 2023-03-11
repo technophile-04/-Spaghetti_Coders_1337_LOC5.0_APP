@@ -16,7 +16,8 @@ import fonts from '../../../utility/fonts';
 import global from '../../../utility/global';
 import messaging from '@react-native-firebase/messaging';
 import setOfStrings from '../../../utility/screenStrings';
-// import Barcode from "react-native-barcode-builder";
+import Barcode from 'react-native-barcode-builder';
+import Ripple from 'react-native-material-ripple';
 
 var PushNotification = require('react-native-push-notification');
 
@@ -204,7 +205,17 @@ export default function Dashboard({navigation}) {
           <Text style={{fontSize: 12}}>Mfd : {item.mfdDate}</Text>
         </View>
         <View style={internalStyles.extremeRight}>
-          {/* <Barcode value={item.barcode} format="CODE128" /> */}
+          <Barcode
+            value={item.barcode}
+            format="CODE128"
+            width={1}
+            height={40}
+          />
+          <Ripple style={internalStyles.recentPrecautionsItemRightButton}>
+            <Text style={internalStyles.title}>
+              View Detail
+            </Text>
+          </Ripple>
         </View>
       </View>
     );
@@ -293,22 +304,6 @@ export default function Dashboard({navigation}) {
 }
 
 const internalStyles = StyleSheet.create({
-  video: {
-    width: '100%',
-    height: 400,
-    borderRadius: 10,
-    backgroundColor: colors.WHITE,
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    elevation: 1,
-    marginBottom: 10,
-  },
-  videoplayer: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 10,
-  },
   header: {
     color: colors.BLACK,
     fontWeight: '700',
@@ -366,22 +361,29 @@ const internalStyles = StyleSheet.create({
     marginVertical: 5,
   },
   recentPrecautionsItemLeft: {
-    width: 110,
+    width: "28%",
     alignItems: 'center',
     justifyContent: 'center',
   },
   recentPrecautionsItemRight: {
-    width: '50%',
+    width: '38%',
   },
   extremeRight: {
     width: '30%',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   recentPrecautionsItemImage: {
-    width: 100,
+    width: "100%",
     height: 80,
     marginRight: 5,
+  },
+  recentPrecautionsItemRightButton: {
+    width: '100%',
+    height: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.PRIMARY,
+    borderRadius: 6,
+    marginTop: 5,
   },
   title: {
     color: colors.BLACK,

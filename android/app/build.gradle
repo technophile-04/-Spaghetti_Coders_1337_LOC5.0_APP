@@ -268,6 +268,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:31.1.0')
+    implementation project(':react-native-art')
 
 
     // TODO: Add the dependencies for Firebase products you want to use
