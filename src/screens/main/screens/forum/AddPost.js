@@ -29,9 +29,10 @@ const apiKey = {
 };
 
 const accountInfo = {
-  name: 'Name',
-  mobile: '1234567890',
-  email: 'username@gmail.com',
+  name: 'Nihal',
+  mobile: '+91 9136263741',
+  email: 'nihalng786@gmail.com',
+  location: 'Kolkata, India',
   image: require('../../../../assets/images/logo.png'),
   work: 'Manufacturer',
 };

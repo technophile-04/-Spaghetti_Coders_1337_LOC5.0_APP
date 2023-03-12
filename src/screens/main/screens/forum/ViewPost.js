@@ -16,9 +16,12 @@ import constants from '../../../../utility/constants';
 import global from '../../../../utility/global';
 
 const accountInfo = {
-  name: 'Name',
-  location: 'Location',
+  name: 'Nihal',
+  mobile: '+91 9136263741',
+  email: 'nihalng786@gmail.com',
+  location: 'Kolkata, India',
   image: require('../../../../assets/images/logo.png'),
+  work: 'Manufacturer',
 };
 
 const dataOfPost = {

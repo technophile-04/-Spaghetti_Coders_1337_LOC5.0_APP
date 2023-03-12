@@ -22,10 +22,10 @@ const list = [
 ];
 
 const accountInfo = {
-  name: 'Name',
-  mobile: '1234567890',
-  email: 'username',
-  location: 'Raipur',
+  name: 'Nihal',
+  mobile: '+91 9136263741',
+  email: 'nihalng786@gmail.com',
+  location: 'Kolkata, India',
 };
 export default function Settings({navigation}) {
   const [logo, setLogo] = React.useState(null);

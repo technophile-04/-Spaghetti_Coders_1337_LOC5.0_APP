@@ -124,6 +124,7 @@ export default function UploadImage({navigation}) {
                 result: 'With Vendor',
                 manufacturer: 'The manufacturer of the product is not known.�',
                 product: 'The product is not known.�',
+                id : "0xecd772f9ea95183d654e739ce5a6"
               });
               setCollapsible(true);
               // setShowCamera(false);
@@ -175,8 +176,7 @@ export default function UploadImage({navigation}) {
           <Collapsible collapsed={isCollapsible}>
             <View style={{marginTop: 10}}>
               {getKeyValue('Status', output.status)}
-              {getKeyValue('Manufacturer', output.manufacturer)}
-              {getKeyValue('Product', output.product)}
+              {getKeyValue('Data', output.id)}
             </View>
           </Collapsible>
           <View style={{marginTop: 15, alignItems: 'center'}}>
