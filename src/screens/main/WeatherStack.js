@@ -25,6 +25,7 @@ export default function WeatherStack({navigation, route}) {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Weather" component={Weather} options={{
+        headerShown: false,
       }} />
     </Stack.Navigator>
   );

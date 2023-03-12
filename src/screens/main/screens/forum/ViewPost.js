@@ -18,7 +18,7 @@ import global from '../../../../utility/global';
 const accountInfo = {
   name: 'Name',
   location: 'Location',
-  image: require('../../../../assets/images/logo.jpg'),
+  image: require('../../../../assets/images/logo.png'),
 };
 
 const dataOfPost = {
@@ -34,7 +34,7 @@ const dataOfTimeline = [
     name: "Manufacturer's Name",
     date : '12/12/2020',
     location: 'Location',
-    image: require('../../../../assets/images/logo.jpg'),
+    image: require('../../../../assets/images/logo.png'),
     comment:
       'Successfully delivered to the Supplier. The vendor will contact you soon',
   },
@@ -43,7 +43,7 @@ const dataOfTimeline = [
     name: "Supplier's Name",
     date : '13/12/2020',
     location: 'Location',
-    image: require('../../../../assets/images/logo.jpg'),
+    image: require('../../../../assets/images/logo.png'),
     comment:
       'Successfully delivered to the Vendor. The vendor will contact you soon',
   },
@@ -52,7 +52,7 @@ const dataOfTimeline = [
     name: "Vendor's Name",
     date : '14/12/2020',
     location: 'Location',
-    image: require('../../../../assets/images/logo.jpg'),
+    image: require('../../../../assets/images/logo.png'),
     comment:
       'Successfully Recieved',
   },

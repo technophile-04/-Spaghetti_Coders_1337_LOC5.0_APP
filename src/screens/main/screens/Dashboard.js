@@ -225,7 +225,9 @@ export default function Dashboard({navigation}) {
             onPress={() => {
               navigateTo('ViewPost', item.name);
             }}>
-            <Text style={internalStyles.title}>View Detail</Text>
+            <Text style={[internalStyles.title, {color: colors.WHITE}]}>
+              View Detail
+            </Text>
           </Ripple>
         </View>
       </View>

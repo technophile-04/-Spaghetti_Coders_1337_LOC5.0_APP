@@ -29,10 +29,10 @@ const apiKey = {
 };
 
 const accountInfo = {
-  name: "Name",
+  name: 'Name',
   mobile: '1234567890',
   email: 'username@gmail.com',
-  image: require('../../../../assets/images/logo.jpg'),
+  image: require('../../../../assets/images/logo.png'),
   work: 'Manufacturer',
 };
 
@@ -165,7 +165,7 @@ export default function AddPost({navigation}) {
     titleNo,
     title,
     data,
-    handleChange = () => { },
+    handleChange = () => {},
   }) => {
     return (
       <BoxDropdown
@@ -204,10 +204,10 @@ export default function AddPost({navigation}) {
             <Text style={internalStyles.name}>{accountInfo.name}</Text>
 
             <Text style={internalStyles.infoText}>{accountInfo.mobile}</Text>
-            <Text style={internalStyles.infoText}>Work : {accountInfo.work}</Text>
-            <Text style={[internalStyles.infoText]}>
-              {accountInfo.email}
+            <Text style={internalStyles.infoText}>
+              Work : {accountInfo.work}
             </Text>
+            <Text style={[internalStyles.infoText]}>{accountInfo.email}</Text>
           </View>
         </View>
       </View>
@@ -218,7 +218,7 @@ export default function AddPost({navigation}) {
       style={[
         styles.styleFull,
         {
-          marginTop: 10,
+          marginVertical: 10,
           paddingHorizontal: 20,
         },
       ]}>
@@ -261,7 +261,11 @@ export default function AddPost({navigation}) {
       {getInput(inputs[apiKey.PRODUCT_PRICE])}
       <View style={{height: 10}} />
 
-      <PrimaryButton title={'Post'} onPress={handleSubmit(onSubmit)} style={{width:"100%"}} />
+      <PrimaryButton
+        title={'Post'}
+        onPress={handleSubmit(onSubmit)}
+        style={{width: '100%'}}
+      />
     </ScrollView>
   );
 }
