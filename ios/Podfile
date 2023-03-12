@@ -34,6 +34,8 @@ target 'CropShield' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  pod 'alan-sdk-react-native', :path => '../node_modules/@alan-ai/alan-sdk-react-native'
+
   target 'CropShieldTests' do
     inherit! :complete
     # Pods for testing

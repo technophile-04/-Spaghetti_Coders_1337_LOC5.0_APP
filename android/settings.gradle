@@ -1,4 +1,6 @@
 rootProject.name = 'CropShield'
+include ':@alan-ai_alan-sdk-react-native'
+project(':@alan-ai_alan-sdk-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/@alan-ai/alan-sdk-react-native/android')
 include ':react-native-push-notification'
 project(':react-native-push-notification').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-push-notification/android')
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
