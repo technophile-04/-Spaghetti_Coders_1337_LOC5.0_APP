@@ -1,5 +1,6 @@
 import React from 'react';
 import {Text, View} from 'react-native';
+import Ripple from 'react-native-material-ripple';
 import colors from '../../styles/colors';
 import constants from '../../utility/constants';
 import global from '../../utility/global';
@@ -39,29 +40,29 @@ export default function ChooseLanguage({navigation}) {
       </Text>
       {data.map((item, index) => {
         return (
-          <View style={{
-            borderWidth: 0.6,
-            borderolor: colors.GREY_LESS,
-            width: '90%',
-            textAlign: 'center',
-            height: 50,
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginBottom: 10,
-            borderRadius: 5,
-          }}> 
-          <Text
-            key={index}
+          <Ripple
             style={{
-              fontSize: 20,
-              margin: 10,
-              color: colors.BLACK,
-              
+              borderWidth: 0.6,
+              borderolor: colors.GREY_LESS,
+              width: '90%',
+              textAlign: 'center',
+              height: 50,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginBottom: 10,
+              borderRadius: 5,
             }}
             onPress={() => setText(item.shortForm)}>
-            {item.longForm}
-          </Text>
-          </View>
+            <Text
+              key={index}
+              style={{
+                fontSize: 20,
+                margin: 10,
+                color: colors.BLACK,
+              }}>
+              {item.longForm}
+            </Text>
+          </Ripple>
         );
       })}
     </View>
