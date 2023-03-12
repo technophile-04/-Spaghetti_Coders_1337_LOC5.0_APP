@@ -1,6 +1,8 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 import colors from '../../styles/colors';
+import constants from '../../utility/constants';
+import global from '../../utility/global';
 import setOfStrings from '../../utility/screenStrings';
 
 const data = [

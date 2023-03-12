@@ -3,7 +3,7 @@ import LocalizedStrings from "react-native-localization";
 
 const setOfStrings = new LocalizedStrings({
     en: {
-        login: "Login",
+        login: "Connect With Metamask",
         username: "Username",
         password: "Password",
         forgotPassword: "Forgot Password?",
@@ -37,7 +37,7 @@ const setOfStrings = new LocalizedStrings({
         tutorial: "Tutorial",
     },
     hi: {
-        login: "लॉग इन करें",
+        login: "मेटामास्क से कनेक्ट करें",
         username: "उपयोगकर्ता नाम",
         password: "पासवर्ड",
         forgotPassword: "पासवर्ड भूल गए?",
@@ -71,7 +71,7 @@ const setOfStrings = new LocalizedStrings({
         tutorial: "ट्यूटोरियल",
     },
     ma: {
-        login: "लॉग इन करें",
+        login: "मेटामास्क से कनेक्ट करें",
         username: "उपयोगकर्ता नाम",
         password: "पासवर्ड",
         forgotPassword: "पासवर्ड भूल गए?",

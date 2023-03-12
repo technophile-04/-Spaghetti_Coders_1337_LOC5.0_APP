@@ -27,28 +27,38 @@ var PushNotification = require('react-native-push-notification');
 const recentPrecautionData = [
   {
     mfdDate: '12/12/2020',
-    name: 'Dacarbazine',
+    name: 'Necklace',
     quantity: '10',
-    expiryDate: '12/12/2020',
+    expiryDate: '14/12/2020',
     barcode: '1234567890',
     image: require('../../../assets/sample/late_blight.jpg'),
   },
   {
     mfdDate: '12/12/2020',
-    name: 'Dacarbazine',
+    name: 'Necklace',
     quantity: '10',
-    expiryDate: '12/12/2020',
+    expiryDate: '14/12/2020',
+    barcode: '1234567890',
+    image: require('../../../assets/sample/late_blight.jpg'),
+  },
+  {
+    mfdDate: '12/12/2020',
+    name: 'Necklace',
+    quantity: '10',
+    expiryDate: '14/12/2020',
     barcode: '1234567890',
     image: require('../../../assets/sample/late_blight.jpg'),
   },
 ];
 
 export default function Dashboard({navigation}) {
+  const [user, setUser] = React.useState(null);
+
   useEffect(() => {
     navigation.setOptions({
       header: () => (
         <Header
-          title={setOfStrings.hey + ' ' + 'Username'}
+          title={setOfStrings.hey + ' ' + 'Nihal'}
           showBackButton={false}
           navigation={navigation}
           endRippleIcon={'dollar-sign'}
@@ -57,6 +67,8 @@ export default function Dashboard({navigation}) {
         />
       ),
     });
+    setUser(global.getItem(constants.USER_DATA));
+    console.log('user', user);
     PushNotification.createChannel(
       {
         channelId: 'com.storeinsta.com', // (required)
@@ -149,33 +161,6 @@ export default function Dashboard({navigation}) {
   const handleNotificationClick = notification => {
     console.log('handleNotificationClick: ' + JSON.stringify(notification));
     return;
-
-    // if (global.isEmptyObject(state.user)) {
-    //   navigateTo('OnBoard', notification);
-    //   return;
-    // }
-
-    if (notification && notification.type) {
-      switch (notification.type) {
-        // case "1":
-        //   props.navigation.navigate("ProductDetail", {
-        //     [constants.PARAM_PRODUCT]: notification.id ? {
-        //       productId: notification.id
-        //     } : null,
-        //   })
-        //   break;
-
-        case '2':
-          props.navigation.navigate('OrderDetails', {
-            [constants.PARAM_ORDER_ID]: notification.id
-              ? notification.id
-              : null,
-          });
-          break;
-        default:
-          break;
-      }
-    }
   };
 
   const refreshTokenListener = () => {
@@ -233,20 +218,16 @@ export default function Dashboard({navigation}) {
       </View>
     );
   };
-  // const core = new Core({
-  //   projectId: '<YOUR_PROJECT_ID>',
-  // });
-
-  // const metadata = {
-  //   name: 'Example Dapp',
-  //   description: 'Example Dapp',
-  //   url: '#',
-  //   icons: ['https://walletconnect.com/walletconnect-logo.png'],
-  // };
 
   const openCall = async () => {
     // open metamask
     Linking.openURL('https://metamask.app.link/dapp/walletconnect.org');
+    global.storeItem(constants.USER_DATA, {
+      name: 'Nihal',
+      email: 'nihalng786@gmail.com',
+    });
+    setUser(global.getItem(constants.USER_DATA));
+    console.log('user: ' + JSON.stringify(user));
   };
 
   const rederRectangle = (title, value, img) => {
@@ -264,6 +245,14 @@ export default function Dashboard({navigation}) {
       </View>
     );
   };
+
+  if (user === 'null') {
+    return (
+      <View style={styles.styleFull}>
+        <Text>Login First</Text>
+      </View>
+    );
+  }
 
   return (
     <ScrollView
@@ -283,12 +272,12 @@ export default function Dashboard({navigation}) {
             {rederRectangle(
               'Sold',
               '1000',
-              require('../../../assets/images/totalcrops.png'),
+              require('../../../assets/images/logo_onboard.png'),
             )}
             {rederRectangle(
               'With Supplier',
               '1000',
-              require('../../../assets/images/farmarea.png'),
+              require('../../../assets/images/logo_onboard.png'),
             )}
           </View>
           <View
@@ -300,12 +289,12 @@ export default function Dashboard({navigation}) {
             {rederRectangle(
               'With Vendor',
               '1000',
-              require('../../../assets/images/diseasedcrops.png'),
+              require('../../../assets/images/logo_onboard.png'),
             )}
             {rederRectangle(
               'In Manufacturing',
               '1000',
-              require('../../../assets/images/totalproduction.png'),
+              require('../../../assets/images/logo_onboard.png'),
             )}
           </View>
         </View>

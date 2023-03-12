@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
+import {View, Text, StyleSheet, Image, ScrollView, Linking} from 'react-native';
 import Ripple from 'react-native-material-ripple';
 import SplashScreen from 'react-native-splash-screen';
 import CommonInput from '../../components/CommonInput';
@@ -47,7 +47,9 @@ export default function Login({route,navigation}) {
   };
 
   const changeStack = () => {
+    
     global.storeItem(constants.USER_DATA, "null");
+    Linking.openURL('https://metamask.app.link/dapp/walletconnect.org');
     setTimeout(() => {
       navigation.reset({
         index: 0,
@@ -72,84 +74,8 @@ export default function Login({route,navigation}) {
           <View style={internalstyles.centerLogin}>
             <Text style={styles.titleOnBoard}>{setOfStrings.login}</Text>
           </View>
-          <View style={{paddingHorizontal: 22}}>
-            <CommonInput
-              name={apiKey.USERNAME}
-              title={setOfStrings.username}
-              starMark={true}
-              control={control}
-              errors={errors}
-              rules={{
-                required: true,
-              }}
-              textBoxStyle={{backgroundColor: colors.BACKGROUND}}
-              otherTextInputProps={{
-                editable: !isLoading,
-                placeholder: `abcd123`,
-              }}
-              style={{
-                marginTop: 26,
-              }}
-              requiredError={constants.ERROR_USERNAME}
-            />
-
-            <CommonInput
-              name={apiKey.PASSWORD}
-              title={setOfStrings.password}
-              starMark={true}
-              control={control}
-              errors={errors}
-              rules={{
-                required: true,
-                pattern: global.getPasswordRegex(),
-              }}
-              secureTextEntry={true}
-              otherTextInputProps={{
-                editable: !isLoading,
-              }}
-              textBoxStyle={{backgroundColor: colors.BACKGROUND}}
-              style={{
-                marginTop: 26,
-              }}
-              requiredError={constants.ERROR_PASSWORD}
-              validationError={constants.ERROR_PASSWORDV}
-            />
-          </View>
-          <View style={internalstyles.forgotPassword}>
-            <Ripple onPress={() => navigation.navigate('ForgotPassword')}>
-              <Text style={internalstyles.forgotPasswordText}>
-                {setOfStrings.forgotPassword}
-              </Text>
-            </Ripple>
-          </View>
-          <View style={internalstyles.notSignedUp}>
-            <Text style={internalstyles.notSignedUpText}>
-              {setOfStrings.dontHaveAccount}
-            </Text>
-            <Ripple onPress={() => navigation.navigate('Signup')}>
-              <Text style={internalstyles.signUpText}>
-                {setOfStrings.signUp}
-              </Text>
-            </Ripple>
-          </View>
           <View style={internalstyles.buttonLogin}>
-            <PrimaryButton title={setOfStrings.submit} onPress={handleSubmit(doLogin)} />
-            <Ripple
-              onPress={() => changeStack()}
-              style={{
-                marginTop: '5%',
-                borderColor: colors.GREY,
-                borderWidth: 1,
-                borderRadius: 5,
-                width: '90%',
-                height: 50,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <Text style={{fontSize: fonts._14, color: colors.BLACK}}>
-                {setOfStrings.skip}
-              </Text>
-            </Ripple>
+            <PrimaryButton onPress={changeStack} title={setOfStrings.login} />
           </View>
         </View>
       </ScrollView>
